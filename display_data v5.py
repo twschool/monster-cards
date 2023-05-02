@@ -1,12 +1,9 @@
 """
-Second trial version of the data stored module which
-iterates through the creatures to help me decide which
-one is the best for the main program this one trials a
-dictionary inside a dictionary
+First version of the display data module which
+iterates through the creatures
+and prints all of them out in the terminal
 """
 
-
-# Dictionary
 creature_dict = {
     "Stoneling": {
         "Strength": 7,
@@ -70,9 +67,12 @@ creature_dict = {
     }
 }
 
-
+heading_string = "Creature name\tStrength\tSpeed\tStealth\tCunning"
+print(heading_string)
+print()
 for creature, attributes in creature_dict.items():
-    print(f"Creature: {creature}")
+    power_list = []
     for power, value in attributes.items():
-        print(f"Power: {power},\t Value: {value}")
-    print()
+        power_list.append(value)
+    pl = power_list
+    print(f"{creature}\t\t{pl[0]}\t\t{pl[1]}\t\t{pl[2]}\t\t{pl[3]}")

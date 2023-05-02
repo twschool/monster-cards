@@ -1,6 +1,8 @@
-"""Last version of delete meal changed so it returns a tuple instead
-of returning a list also there is no main routine in the script because
-I wanted to use it for testing in edit_meals_v2"""
+"""
+First version of the search card module which allows users to
+search and modify stats for different creatures no error
+prevention
+"""
 
 import easygui as eg
 # Dictionary

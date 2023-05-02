@@ -1,12 +1,9 @@
 """
-Second trial version of the data stored module which
-iterates through the creatures to help me decide which
-one is the best for the main program this one trials a
-dictionary inside a dictionary
+First version of the delete data module which
+deletes whatever card the user chooses
 """
+import easygui as eg
 
-
-# Dictionary
 creature_dict = {
     "Stoneling": {
         "Strength": 7,
@@ -69,10 +66,13 @@ creature_dict = {
         "Cunning": 2
     }
 }
-
-
-for creature, attributes in creature_dict.items():
-    print(f"Creature: {creature}")
-    for power, value in attributes.items():
-        print(f"Power: {power},\t Value: {value}")
-    print()
+while True:
+    monsters = []
+    for creature in creature_dict:
+        monsters.append(creature)
+    msg_ = "What card do you want to delete"
+    try:
+        to_delete = eg.buttonbox(choices=monsters, msg=msg_, title="Delete card")
+        del creature_dict[to_delete]
+    except IndexError:
+        eg.msgbox(msg="No cards found in database")

@@ -1,5 +1,12 @@
+"""
+First trial version of the data stored module which
+iterates through the creatures to help me decide which
+one is the best for the main program this one trials
+a dictionary in a list
+"""
+
 # List
-creatures_list = [
+creature_list = [
     {"Name": "Stoneling", "Strength": 7, "Speed": 1, "Stealth": 25, "Cunning": 15},
     {"Name": "Vexscream", "Strength": 1, "Speed": 6, "Stealth": 21, "Cunning": 19},
     {"Name": "Dawnmirage", "Strength": 5, "Speed": 15, "Stealth": 18, "Cunning": 22},
@@ -12,7 +19,7 @@ creatures_list = [
     {"Name": "Wispghoul", "Strength": 17, "Speed": 19, "Stealth": 3, "Cunning": 2}
 ]
 
-for creature in creatures_list:
+for creature in creature_list:
     for power, value in creature.items():
         print(f"Power: {power},\t Value: {value}")
     print()
