@@ -75,4 +75,4 @@ for creature, attributes in creature_dict.items():
     for power, value in attributes.items():
         power_list.append(value)
     pl = power_list
-    print(f"{creature}\t\t{pl[0]}\t\t{pl[1]}\t\t{pl[2]}\t\t{pl[3]}")
+    print(f"{creature}\t\t{pl[0]}\t\t\t{pl[1]}\t\t{pl[2]}\t\t{pl[3]}")
