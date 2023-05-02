@@ -1,9 +1,13 @@
 """
-First version of the delete data module which
-deletes whatever card the user chooses
-"""
-import easygui as eg
+Second version of the add cards module which allows users to
+add custom cards to the monster dictionary
+this version is the developed outcome as I
+found a better way for the user to enter data
+than add_cards_v1"""
 
+
+import easygui as eg
+# Dictionary
 creature_dict = {
     "Stoneling": {
         "Strength": 7,
@@ -67,16 +71,10 @@ creature_dict = {
     }
 }
 
-while True:
-    # Loops forever (just for testing)
-    monsters = []
-    for creature in creature_dict:
-        monsters.append(creature)
-    msg_ = "What card do you want to delete"
-    try:
-        to_delete = eg.buttonbox(choices=monsters, msg=msg_, title="Delete card")
-        del creature_dict[to_delete]
-    except IndexError:
-        """If user deletes all cards then runs this function again
-        then the msgbox will print the error without crashing"""
-        eg.msgbox(msg="No cards found in database")
+
+enterbox_fields = ["Creature Name"]
+enterbox_values = ["Strength", "Speed", "Stealth", "Cunning"]
+for stat in enterbox_values:
+    enterbox_fields.append(f"{stat}")
+
+new_card_data = eg.multenterbox(fields=enterbox_fields, msg="Add custom card (Stat values must be between 1-25)")
