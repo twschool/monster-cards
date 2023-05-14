@@ -1,8 +1,8 @@
 """
-First version of the display data module which
-iterates through the creatures
-and prints all of them out in the terminal
+Second version of the delete data module which
+deletes whatever card the user chooses
 """
+import easygui as eg
 
 creature_dict = {
     "Stoneling": {
@@ -67,13 +67,17 @@ creature_dict = {
     }
 }
 
-def displaydata():
-    heading_string = "Creature name\tStrength\tSpeed\tStealth\tCunning"
-    print(heading_string)
-    print()
-    for creature, attributes in creature_dict.items():
-        power_list = []
-        for power, value in attributes.items():
-            power_list.append(value)
-        pl = power_list
-        print(f"{creature}\t\t{pl[0]}\t\t\t{pl[1]}\t\t{pl[2]}\t\t{pl[3]}")
+def deletedata():
+    while True:
+        # Loops forever (just for testing)
+        monsters = []
+        for creature in creature_dict:
+            monsters.append(creature)
+        msg_ = "What card do you want to delete"
+        try:
+            to_delete = eg.buttonbox(choices=monsters, msg=msg_, title="Delete card")
+            del creature_dict[to_delete]
+        except IndexError:
+            """If user deletes all cards then runs this function again
+            then the msgbox will print the error without crashing"""
+            eg.msgbox(msg="No cards found in database")

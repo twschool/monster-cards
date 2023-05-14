@@ -70,7 +70,6 @@ creature_dict = {
     }
 }
 
-
 for creature, attributes in creature_dict.items():
     print(f"Creature: {creature}")
     for power, value in attributes.items():

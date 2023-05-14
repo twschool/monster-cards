@@ -1,9 +1,13 @@
 """
-First version of the display data module which
-iterates through the creatures
-and prints all of them out in the terminal
-"""
+Second version of the add cards module which allows users to
+add custom cards to the monster dictionary
+this version is the developed outcome as I
+found a better way for the user to enter data
+than add_cards_v1"""
 
+
+import easygui as eg
+# Dictionary
 creature_dict = {
     "Stoneling": {
         "Strength": 7,
@@ -67,13 +71,19 @@ creature_dict = {
     }
 }
 
-def displaydata():
-    heading_string = "Creature name\tStrength\tSpeed\tStealth\tCunning"
-    print(heading_string)
-    print()
-    for creature, attributes in creature_dict.items():
-        power_list = []
-        for power, value in attributes.items():
-            power_list.append(value)
-        pl = power_list
-        print(f"{creature}\t\t{pl[0]}\t\t\t{pl[1]}\t\t{pl[2]}\t\t{pl[3]}")
+def nonecheck()
+
+
+def add_cards():
+    enterbox_fields = ["Creature Name"]
+    enterbox_values = ["Strength", "Speed", "Stealth", "Cunning"]
+    for stat in enterbox_values:
+        enterbox_fields.append(f"{stat}")
+    enterbox_title = "edit card data"
+    new_card_data = eg.multenterbox(fields=enterbox_fields,
+                                    msg="Add custom card (Stat values must be between 1-25)")
+    enterbox_msg = "Press ok to submit this card otherwise press cancel to exit or edit the data if anything is wrong"
+    new_card_data = eg.multenterbox(fields=enterbox_fields,
+                                    msg=enterbox_msg,
+                                    values=new_card_data)
+    print(new_card_data)
