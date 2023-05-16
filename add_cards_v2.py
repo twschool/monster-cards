@@ -73,52 +73,22 @@ creature_dict = {
 
 
 def card_check(user_values):
-    enterbox_fields = ["Monster name"]
-    
-    # Interating through all the attributes and values
-    for attribute, value in raw_dict.items():
-        user_values.append(attribute)
-        user_values.append(value)
-    
-    for num in range(0, 4):
-        enterbox_fields.append(f"Attribute {num}")
-        enterbox_fields.append(f"Attribute {num} value")
-    msg_ = ""
-    enterbox_title = "Edit card data"
-
     while True:
-        error = False
-        error_text = ""
-        changed_data = eg.multenterbox(fields=enterbox_fields,
-                                        values=user_values, title=enterbox_title)
-        count = 0
+        error = ""
+        for value in user_values[1:]:
+            if value == "":
+                error = "One of the values was left empty"
+            try:
+                int_value = int(value)
+            except ValueError:
+                error = "All stat values need to be a number not a string"
+            else:
+                if int_value < 0 or int_value > 25:
+                    error = "Stat values need to be between 0 and 25"
+                  
 
-        for item in changed_data:
-            if item == "":
-                error = True
-                error_text = "One of the fields was empty"
             
-        # Complex system for catching int errors
 
-        # Ever
-            if count % 2 == 0:
-                if count != 0:
-                    print(f"Got through: {item}")
-                    try:
-                        item_num = int(item)
-                    except ValueError:
-                        error = True
-                        error_text = "A number was expected instead got a string (word)"
-                    else:
-                        if item_num > 25 or item_num < 1:
-                            error = True
-                            error_text = "Invalid number numbers can only be between 1-25"
-            count += 1
-                    
-        if error is False:
-            return True
-        else:
-            eg.msgbox(msg=f"Error: {error_text}")
 
 
 def add_cards():
@@ -133,10 +103,6 @@ def add_cards():
 
     check_output = card_check(new)
     print(f"CO: {check_output}")
-    # enterbox_msg = "Press ok to submit this card otherwise press cancel to exit or edit the data if anything is wrong"
-    # new_card_data = eg.multenterbox(fields=enterbox_fields,
-    #                                 msg=enterbox_msg,
-    #                                 values=new_card_data)
     print(new_card_data)
 
 
