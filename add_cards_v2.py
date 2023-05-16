@@ -71,11 +71,54 @@ creature_dict = {
     }
 }
 
-def nonecheck(user_input):
-    if user_input is None:
-        return True
-    else:
-        return False
+
+def card_check(user_values):
+    enterbox_fields = ["Monster name"]
+    
+    # Interating through all the attributes and values
+    for attribute, value in raw_dict.items():
+        user_values.append(attribute)
+        user_values.append(value)
+    
+    for num in range(0, 4):
+        enterbox_fields.append(f"Attribute {num}")
+        enterbox_fields.append(f"Attribute {num} value")
+    msg_ = ""
+    enterbox_title = "Edit card data"
+
+    while True:
+        error = False
+        error_text = ""
+        changed_data = eg.multenterbox(fields=enterbox_fields,
+                                        values=user_values, title=enterbox_title)
+        count = 0
+
+        for item in changed_data:
+            if item == "":
+                error = True
+                error_text = "One of the fields was empty"
+            
+        # Complex system for catching int errors
+
+        # Ever
+            if count % 2 == 0:
+                if count != 0:
+                    print(f"Got through: {item}")
+                    try:
+                        item_num = int(item)
+                    except ValueError:
+                        error = True
+                        error_text = "A number was expected instead got a string (word)"
+                    else:
+                        if item_num > 25 or item_num < 1:
+                            error = True
+                            error_text = "Invalid number numbers can only be between 1-25"
+            count += 1
+                    
+        if error is False:
+            return True
+        else:
+            eg.msgbox(msg=f"Error: {error_text}")
 
 
 def add_cards():
@@ -83,39 +126,17 @@ def add_cards():
     enterbox_values = ["Strength", "Speed", "Stealth", "Cunning"]
     for stat in enterbox_values:
         enterbox_fields.append(f"{stat}")
-    enterbox_title = "edit card data"
+    enterbox_title = "Edit card data"
     new_card_data = eg.multenterbox(fields=enterbox_fields,
                                     msg="Add custom card (Stat values must be between 1-25)")
-    if nonecheck(new_card_data):
-        return [False, "User exited out of edit statement"]
-    while True:
-        enterbox_msg = "New card data entry"
-        data_backup = new_card_data
-        new_card_data = eg.multenterbox(fields=enterbox_fields,
-                                        msg=enterbox_msg,
-                                        values=new_card_data)
-        if nonecheck(new_card_data):
-            does_exit = eg.buttonbox(msg="Do you want to exit without saving changes",
-                                    choices = ["Yes", "No"])
-            if does_exit == "Yes":
-                return [None, "User exited without saving"]
-            else:
-                # If user mistakenly cancels then they can go back
-                new_card_data = data_backup
-                continue
-        else:
-            # If user didnt raise a error then exit out of this function
-            for value in new_card_data[1:]:
-                if value == "" or new_card_data[0] == "":
-                    eg.msgbox("No values can be left empty")
-                    continue
-                try:
-                    converted = int(value)
-                except ValueError:
-                    eg.msgbox("All values have to be a integer (apart from card name)")
-                    continue
-            break
-                                 
+    print(f"NCD: {new_card_data}")
+
+    check_output = card_check(new)
+    print(f"CO: {check_output}")
+    # enterbox_msg = "Press ok to submit this card otherwise press cancel to exit or edit the data if anything is wrong"
+    # new_card_data = eg.multenterbox(fields=enterbox_fields,
+    #                                 msg=enterbox_msg,
+    #                                 values=new_card_data)
     print(new_card_data)
 
 
