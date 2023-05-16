@@ -72,11 +72,26 @@ creature_dict = {
 }
 
 
-def card_check(user_values):
+def card_check(user_values, enterbox_msg,
+               enterbox_title, enterbox_fields):
     while True:
+        new_user_values = eg.multenterbox(
+                        values=user_values,
+                        title=enterbox_title,
+                        msg=enterbox_msg,
+                        fields=enterbox_fields)
+        if new_user_values is None:
+            quitting = eg.boolbox(msg="Do you want to quit")
+            if quitting is True:
+                return False, "User quit"
+        else:
+            user_values = new_user_values
+            
+        print("It is finished")
+        print(user_values)
         error = ""
         for value in user_values[1:]:
-            if value == "":
+            if value == "" or user_values[0] == "":
                 error = "One of the values was left empty"
             try:
                 int_value = int(value)
@@ -85,7 +100,9 @@ def card_check(user_values):
             else:
                 if int_value < 0 or int_value > 25:
                     error = "Stat values need to be between 0 and 25"
-                  
+        if error != "":
+            eg.msgbox(msg=error)
+    return True, user_values
 
             
 
@@ -99,11 +116,12 @@ def add_cards():
     enterbox_title = "Edit card data"
     new_card_data = eg.multenterbox(fields=enterbox_fields,
                                     msg="Add custom card (Stat values must be between 1-25)")
-    print(f"NCD: {new_card_data}")
 
-    check_output = card_check(new)
-    print(f"CO: {check_output}")
-    print(new_card_data)
+    changed_data = card_check(new_card_data,
+                    "Confirm this is the correct data",
+                    "Data confirmation", enterbox_fields)
+    cd = changed_data # Shortened the variable name for convenience
+    creature_dict[cd[0]] = {cd[1] : cd[2], cd[3]: cd[4], cd[5]: cd[6]}
 
 
 add_cards()
