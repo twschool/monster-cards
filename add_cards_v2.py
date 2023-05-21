@@ -115,7 +115,8 @@ def add_cards():
         enterbox_fields.append(f"{stat}")
     enterbox_title = "Edit card data"
     new_card_data = eg.multenterbox(fields=enterbox_fields,
-                                    msg="Add custom card (Stat values must be between 1-25)")
+                                    msg="Add custom card (Stat values must be between 1-25)",
+                                    title="Add Custom Card")
 
     changed_data = card_check(new_card_data,
                     "Confirm this is the correct data",

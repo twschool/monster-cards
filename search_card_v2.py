@@ -72,6 +72,8 @@ creature_dict = {
 
 
 
+
+
 def change_card(card_name, msg_=""):
     # Global varaible prevent errors 
     global creature_dict
