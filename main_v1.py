@@ -139,7 +139,7 @@ def change_card(card_data, msg_="", enterbox_title="", is_in_dict=True):
                 item_num = int(item)
             except ValueError:
                 error = True
-                error_text = "A number was expected instead got a string (word)"
+                error_text = "Either a space was empty or a invalid number was entered"
             else:
                 if item_num > 25 or item_num < 1:
                     error = True
