@@ -124,5 +124,4 @@ def add_cards():
     cd = changed_data # Shortened the variable name for convenience
     creature_dict[cd[0]] = {cd[1] : cd[2], cd[3]: cd[4], cd[5]: cd[6]}
 
-
 add_cards()

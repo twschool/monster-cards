@@ -138,5 +138,4 @@ for creature in creature_dict:
     monsters.append(creature)
 msg_ = "What card do you want to search"
 to_search = eg.buttonbox(choices=monsters, msg=msg_, title="Monster search")
-change_card(card_name=to_search)
-print(creature_dict)
+change_output = change_card(card_name=to_search)
