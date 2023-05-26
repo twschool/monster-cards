@@ -70,33 +70,31 @@ creature_dict = {
 }
 
 
-def cancel_func(message="Do you want to go back to the main menu?"):
-    result = eg.buttonbox(msg=message,
-                        choices=["Yes", "No"], title="Exit")
+def cancel_func(message_="Do you want to go back to the main menu?"):
+    result = eg.buttonbox(msg=message_,
+                          choices=["Yes", "No"], title="Exit")
     if result == "Yes":
         return True
     else:
         return False
 
 
-def change_card(card_data, msg_="", enterbox_title="", is_in_dict=True):
-    # Global varaible prevent errors 
+def change_card(card_data, _msg="", enterbox_title="", is_in_dict=True):
+    # Global variable prevent errors
     global creature_dict
 
     card_name = card_data[0]
     enterbox_values = []    
-    enterbox_fields = ["Monster name" ,"Strength", "Speed", "Stealth", "Cunning"]
+    enterbox_fields = ["Monster name", "Strength", "Speed", "Stealth", "Cunning"]
 
-    if msg_ == "":
-        # If user doesnt pass in a custom message use the default
-        msg_ == f"Change card for {card_name}"
+    if _msg == "":
+        # If user doesn't pass in a custom message use the default
+        _msg = f"Change card for {card_name}"
     
     if enterbox_title == "":
-        # If user doesnt pass in a custom title use the default
+        # If user doesn't pass in a custom title use the default
         enterbox_title = "Edit card data"
 
-    
-    
     if is_in_dict is True:
         enterbox_values.append(card_name)
         raw_dict_data = creature_dict[card_name]
@@ -104,18 +102,16 @@ def change_card(card_data, msg_="", enterbox_title="", is_in_dict=True):
             enterbox_values.append(value)
     else:
         enterbox_values = card_data
-    
-    
+
     # If a dictionary was given then turn the dictionary into a list
-   
-    changed_data = enterbox_values
     while True:
         error = False
         count = 0
 
         error_text = ""
-        changed_data = eg.multenterbox(msg="Confirm your card values" ,fields=enterbox_fields,
-                                        values=enterbox_values, title=enterbox_title)
+        changed_data = eg.multenterbox(msg=_msg, fields=enterbox_fields,
+                                       values=enterbox_values, title=enterbox_title)
+
         if changed_data is None:
             if cancel_func() is False:
                 continue
@@ -123,6 +119,7 @@ def change_card(card_data, msg_="", enterbox_title="", is_in_dict=True):
                 return
         else:
             enterbox_values = changed_data
+
         if changed_data[0] == "":
             error_text = "Monster name was empty"
             error = True
@@ -145,25 +142,25 @@ def change_card(card_data, msg_="", enterbox_title="", is_in_dict=True):
                     error = True
                     error_text = "Invalid number numbers can only be between 1-25"
 
-                
         if error is False:
             break
         else:
             eg.msgbox(msg=f"Error: {error_text}")
 
-    # Shortened name for tidyness
+    # Shortened name for tidiness
     cd = changed_data
-    creature_dict[cd[0]] = {"Strength" : cd[1], "Speed": cd[2], "Stealth": cd[3], "Cunning": cd[4]}
+    creature_dict[cd[0]] = {"Strength": cd[1], "Speed": cd[2], "Stealth": cd[3], "Cunning": cd[4]}
 
 
 def return_all_monsters():
+    # A cool short function for convenience
     monsters_ = []
     for creature in creature_dict:
         monsters_.append(creature)
     return monsters_
 
 
-def displaydata():
+def display_data():
     heading_string = "Creature name\tStrength\tSpeed\tStealth\tCunning"
     print(heading_string)
     print()
@@ -190,13 +187,14 @@ def add_cards():
         change_card(card_data=new_card_data, is_in_dict=False)
 
 
-def deletedata():
+def delete_data():
+    # A small function to prompt the user to delete 1 item
     while True:
         # Loops forever (just for testing)
         monsters = return_all_monsters()
-        msg_ = "What card do you want to delete"
+        msg = "What card do you want to delete"
         try:
-            to_delete = eg.buttonbox(choices=monsters, msg=msg_, title="Delete card")
+            to_delete = eg.buttonbox(choices=monsters, msg=msg, title="Delete card")
             del creature_dict[to_delete]
             return
         except IndexError:
@@ -205,53 +203,39 @@ def deletedata():
             eg.msgbox(msg="No cards found in database")
 
 
-def displaydata():
-    heading_string = "Creature name\tStrength\tSpeed\tStealth\tCunning"
-    print(heading_string)
-    print()
-    for creature, attributes in creature_dict.items():
-        power_list = []
-        for power, value in attributes.items():
-            power_list.append(value)
-        pl = power_list
-        print(f"{creature}\t\t{pl[0]}\t\t\t{pl[1]}\t\t{pl[2]}\t\t{pl[3]}")
-
-
 options = ["Delete card", "Add card", "Search card", "Output menu", "Exit"]
 while True:
     action = eg.buttonbox(choices=options,
-                        msg="What would you like to do?",
-                        title="Main Menu")
+                          msg="What would you like to do?",
+                          title="Main Menu")
     if action == "Exit":
         exit("User exited the program")
 
     elif action == "Delete card":
-        deletedata()
+        delete_data()
     elif action == "Add card":
         add_cards()
     elif action == "Search card":
         
         action_search = eg.buttonbox(msg="Do you want to view and edit a card or just view a card?",
-                                    choices=["View a card", "View and edit a card"])
+                                     choices=["View a card", "View and edit a card"])
         ca = return_all_monsters()
         
         msg_ = "What card do you want to search"
         to_search = eg.buttonbox(choices=ca,
-                                msg=msg_,
-                                title="Monster search")
-        
+                                 msg=msg_,
+                                 title="Monster search")
         
         if "edit" in action_search:
             change_card([to_search], is_in_dict=True)
         else:
-            card_data = creature_dict[to_search]
-            print(card_data)
+            card_data_ = creature_dict[to_search]
             message = f"{to_search}\n"\
-                f"Strength: {card_data['Strength']}\n"\
-                f"Speed: {card_data['Speed']}\n"\
-                f"Stealth: {card_data['Stealth']}\n"\
-                f"Cunning: {card_data['Cunning']}"
+                f"Strength: {card_data_['Strength']}\n"\
+                f"Speed: {card_data_['Speed']}\n"\
+                f"Stealth: {card_data_['Stealth']}\n"\
+                f"Cunning: {card_data_['Cunning']}"
             eg.msgbox(msg=message,
-                    title="Searched card data")
+                      title="Searched card data")
     elif action == "Output menu":
-        displaydata()
+        display_data()
