@@ -161,7 +161,7 @@ def return_all_monsters():
 
 
 def display_data():
-    heading_string = "Creature name\tStrength\tSpeed\tStealth\tCunning"
+    heading_string = "Creature name\t\tStrength\t\tSpeed\t\tStealth\t\tCunning"
     print(heading_string)
     print()
     for creature, attributes in creature_dict.items():
@@ -239,3 +239,4 @@ while True:
                       title="Searched card data")
     elif action == "Output menu":
         display_data()
+  
