@@ -1,6 +1,7 @@
 
 """
-First version of the main component all components being combined into one main program
+First version of the main component all components being
+combined into one main program
 """
 
 
@@ -85,7 +86,8 @@ def change_card(card_data, _msg="", enterbox_title="", is_in_dict=True):
 
     card_name = card_data[0]
     enterbox_values = []    
-    enterbox_fields = ["Monster name", "Strength", "Speed", "Stealth", "Cunning"]
+    enterbox_fields = ["Monster name", "Strength",
+                       "Speed", "Stealth", "Cunning"]
 
     if _msg == "":
         # If user doesn't pass in a custom message use the default
@@ -110,7 +112,8 @@ def change_card(card_data, _msg="", enterbox_title="", is_in_dict=True):
 
         error_text = ""
         changed_data = eg.multenterbox(msg=_msg, fields=enterbox_fields,
-                                       values=enterbox_values, title=enterbox_title)
+                                       values=enterbox_values,
+                                       title=enterbox_title)
 
         if changed_data is None:
             if cancel_func() is False:
@@ -136,11 +139,13 @@ def change_card(card_data, _msg="", enterbox_title="", is_in_dict=True):
                 item_num = int(item)
             except ValueError:
                 error = True
-                error_text = "Either a space was empty or a invalid number was entered"
+                error_text = "Either a space was empty or " \
+                             "a invalid number was entered"
             else:
                 if item_num > 25 or item_num < 1:
                     error = True
-                    error_text = "Invalid number numbers can only be between 1-25"
+                    error_text = "Invalid number numbers can " \
+                                 "only be between 1-25"
 
         if error is False:
             break
@@ -149,7 +154,9 @@ def change_card(card_data, _msg="", enterbox_title="", is_in_dict=True):
 
     # Shortened name for tidiness
     cd = changed_data
-    creature_dict[cd[0]] = {"Strength": cd[1], "Speed": cd[2], "Stealth": cd[3], "Cunning": cd[4]}
+    del creature_dict[card_name]
+    creature_dict[cd[0]] = {"Strength": cd[1], "Speed": cd[2],
+                            "Stealth": cd[3], "Cunning": cd[4]}
 
 
 def return_all_monsters():
@@ -161,7 +168,8 @@ def return_all_monsters():
 
 
 def display_data():
-    heading_string = "Creature name\t\tStrength\t\tSpeed\t\tStealth\t\tCunning"
+    heading_string = "Creature name\t\tStrength\t\t" \
+                     "Speed\t\tStealth\t\tCunning"
     print(heading_string)
     print()
     for creature, attributes in creature_dict.items():
@@ -169,7 +177,8 @@ def display_data():
         for power, value in attributes.items():
             power_list.append(value)
         pl = power_list
-        print(f"{creature}\t\t{pl[0]}\t\t\t{pl[1]}\t\t{pl[2]}\t\t{pl[3]}")
+        print(f"{creature}\t\t{pl[0]}\t\t\t"
+              f"{pl[1]}\t\t{pl[2]}\t\t{pl[3]}")
 
 
 def add_cards():
@@ -179,7 +188,8 @@ def add_cards():
         enterbox_fields.append(f"{stat}")
     enterbox_title = "edit card data"
     new_card_data = eg.multenterbox(fields=enterbox_fields,
-                                    msg="Add custom card (Stat values must be between 1-25)",
+                                    msg="Add custom card (Stat values"
+                                        " must be between 1-25)",
                                     title=enterbox_title)
     if new_card_data is None:
         return [False, "User exited out of edit statement"]
@@ -194,16 +204,19 @@ def delete_data():
         monsters = return_all_monsters()
         msg = "What card do you want to delete"
         try:
-            to_delete = eg.buttonbox(choices=monsters, msg=msg, title="Delete card")
+            to_delete = eg.buttonbox(choices=monsters, msg=msg,
+                                     title="Delete card")
             del creature_dict[to_delete]
             return
         except IndexError:
-            """If user deletes all cards then runs this function again
-            then the msgbox will print the error without crashing"""
+            """If user deletes all cards then runs this 
+            function again then the msgbox will print the
+             error without crashing"""
             eg.msgbox(msg="No cards found in database")
 
 
-options = ["Delete card", "Add card", "Search card", "Output menu", "Exit"]
+options = ["Delete card", "Add card",
+           "Search card", "Output menu", "Exit"]
 while True:
     action = eg.buttonbox(choices=options,
                           msg="What would you like to do?",
@@ -217,8 +230,10 @@ while True:
         add_cards()
     elif action == "Search card":
         
-        action_search = eg.buttonbox(msg="Do you want to view and edit a card or just view a card?",
-                                     choices=["View a card", "View and edit a card"])
+        action_search = eg.buttonbox(msg="Do you want to view and edit "
+                                         "a card or just view a card?",
+                                     choices=["View a card",
+                                              "View and edit a card"])
         ca = return_all_monsters()
         
         msg_ = "What card do you want to search"
